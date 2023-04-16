@@ -4,8 +4,17 @@ import Author from "./_child/author"
 import { Swiper, SwiperSlide } from "swiper/react"
 import SwiperCore, { Autoplay } from 'swiper'
 import 'swiper/css'
+import fetcher from "@/lib/fetcher"
+import Spinner from "./_child/spinner"
+import Error from "./_child/error"
 
 const Section1 = () => {
+
+    const { data, isLoading, isError } = fetcher('api/trending')
+
+    if (isLoading) return <Spinner />
+    if (isError) return <Error />
+
     SwiperCore.use([Autoplay])
 
     const bg = {
@@ -24,11 +33,11 @@ const Section1 = () => {
                         delay: 2000
                     }}
                 >
-                    <SwiperSlide>{Slide(1, 'jpg')}</SwiperSlide>
-                    <SwiperSlide>{Slide(2, 'jpg')}</SwiperSlide>
-                    <SwiperSlide>{Slide(3, 'png')}</SwiperSlide>
-                    <SwiperSlide>{Slide(4, 'png')}</SwiperSlide>
-                    <SwiperSlide>{Slide(5, 'png')}</SwiperSlide>
+                    {
+                        data.map((value, index) => (
+                            <SwiperSlide key={index}><Slide data={value}></Slide></SwiperSlide>
+                        ))
+                    }
                 </Swiper>
             </div>
         </section>
@@ -37,26 +46,27 @@ const Section1 = () => {
 
 export default Section1
 
-function Slide(no, type) {
+function Slide({ data }) {
+    const { id, title, category, img, published, description, author } = data;
     return (
         <div className="grid md:grid-cols-2" >
             <div className="image">
                 <Link legacyBehavior href={"/"}>
-                    <a><Image src={"/images/img" + no + "." + type} width={600} height={600} /></a>
+                    <a><Image src={img || "/"} width={600} height={600} /></a>
                 </Link>
             </div>
             <div className="info flex justify-center flex-col">
                 <div className="cat">
-                    <Link legacyBehavior href={"/"}><a className="text-orange-600 hover:text-orange-800">Business, Travel</a></Link>
-                    <Link legacyBehavior href={"/"}><a className="text-gray-800 hover:text-gray-600"> - July 3, 2023</a></Link>
+                    <Link legacyBehavior href={"/"}><a className="text-orange-600 hover:text-orange-800">{category || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={"/"}><a className="text-gray-800 hover:text-gray-600">- {published || "Unknown"}</a></Link>
                 </div>
                 <div className="title">
-                    <Link legacyBehavior href={"/"}><a className="text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600">Your most unhappy customers are your greatest source og learning</a></Link>
+                    <Link legacyBehavior href={"/"}><a className="text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600">{title || "Unknown"}</a></Link>
                 </div>
                 <p className="text-gray-500 py-3">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, maiores veritatis? Debitis nostrum eum illo quae aperiam, culpa soluta cum laudantium esse veniam maiores mollitia veritatis ex nulla aliquid sint!
+                    {description || "Description"}
                 </p>
-                <Author />
+                {author ? <Author /> : <></>}
             </div>
         </div>
     )
