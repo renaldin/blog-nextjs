@@ -51,22 +51,22 @@ function Slide({ data }) {
     return (
         <div className="grid md:grid-cols-2" >
             <div className="image">
-                <Link legacyBehavior href={"/"}>
+                <Link legacyBehavior href={`/posts/${id}`}>
                     <a><Image src={img || "/"} width={600} height={600} /></a>
                 </Link>
             </div>
             <div className="info flex justify-center flex-col">
                 <div className="cat">
-                    <Link legacyBehavior href={"/"}><a className="text-orange-600 hover:text-orange-800">{category || "Unknown"}</a></Link>
-                    <Link legacyBehavior href={"/"}><a className="text-gray-800 hover:text-gray-600">- {published || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-orange-600 hover:text-orange-800">{category || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-gray-800 hover:text-gray-600">- {published || "Unknown"}</a></Link>
                 </div>
                 <div className="title">
-                    <Link legacyBehavior href={"/"}><a className="text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600">{title || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600">{title || "Unknown"}</a></Link>
                 </div>
                 <p className="text-gray-500 py-3">
                     {description || "Description"}
                 </p>
-                {author ? <Author /> : <></>}
+                {author ? <Author {...author} /> : <></>}
             </div>
         </div>
     )

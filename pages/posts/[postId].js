@@ -31,7 +31,7 @@ function Article({ title, img, subTitle, description, author }) {
         <Format>
             <section className="container mx-auto md:px-2 py-16 w-1/2">
                 <div className="flex justify-center">
-                    {author ? <Author /> : <></>}
+                    {author ? <Author {...author} /> : <></>}
                 </div>
 
                 <div className="post py-10">

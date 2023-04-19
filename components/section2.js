@@ -35,22 +35,22 @@ function Post({ data }) {
     return (
         <div className="item">
             <div className="images">
-                <Link legacyBehavior href={"/"}>
+                <Link legacyBehavior href={`/posts/${id}`}>
                     <a className="rounded"><Image src={img || "/"} width={500} height={350} /></a>
                 </Link>
             </div>
             <div className="info flex justify-center flex-col py-4">
                 <div className="cat">
-                    <Link legacyBehavior href={"/"}><a className="text-orange-600 hover:text-orange-800">{category || 'Unknown'}</a></Link>
-                    <Link legacyBehavior href={"/"}><a className="text-gray-800 hover:text-gray-600">- {published || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-orange-600 hover:text-orange-800">{category || 'Unknown'}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-gray-800 hover:text-gray-600">- {published || "Unknown"}</a></Link>
                 </div>
                 <div className="title">
-                    <Link legacyBehavior href={"/"}><a className="text-xl font-bold text-gray-800 hover:text-gray-600">{title || "Title"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-xl font-bold text-gray-800 hover:text-gray-600">{title || "Title"}</a></Link>
                 </div>
                 <p className="text-gray-500 py-3">
                     {subtitle || 'Subtitle'}
                 </p>
-                {author ? <Author /> : <></>}
+                {author ? <Author {...author} /> : <></>}
             </div>
         </div>
     )

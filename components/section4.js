@@ -46,19 +46,19 @@ function Post({ data }) {
     return (
         <div className="flex gap-5 ">
             <div className="image flex flex-col justify-start">
-                <Link legacyBehavior href={"/"}>
+                <Link legacyBehavior href={`/posts/${id}`}>
                     <a><Image src={img || "/"} className="rounded" width={300} height={250} /></a>
                 </Link>
             </div>
             <div className="info flex justify-center flex-col">
                 <div className="cat">
-                    <Link legacyBehavior href={"/"}><a className="text-orange-600 hover:text-orange-800">{category || "Unknown"}</a></Link>
-                    <Link legacyBehavior href={"/"}><a className="text-gray-800 hover:text-gray-600">- {published || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-orange-600 hover:text-orange-800">{category || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-gray-800 hover:text-gray-600">- {published || "Unknown"}</a></Link>
                 </div>
                 <div className="title">
-                    <Link legacyBehavior href={"/"}><a className="text-xl font-bold text-gray-800 hover:text-gray-600">{title || "Unknown"}</a></Link>
+                    <Link legacyBehavior href={`/posts/${id}`}><a className="text-xl font-bold text-gray-800 hover:text-gray-600">{title || "Unknown"}</a></Link>
                 </div>
-                {author ? <Author /> : <></>}
+                {author ? <Author {...author} /> : <></>}
             </div>
         </div>
     )
